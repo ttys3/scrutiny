@@ -1,0 +1,84 @@
+{
+  "json_format_version": [
+    1,
+    0
+  ],
+  "smartctl": {
+    "version": [
+      7,
+      0
+    ],
+    "svn_revision": "4883",
+    "platform_info": "x86_64-linux-3.10.0-514.6.1.el7.x86_64",
+    "build_info": "(local build)",
+    "argv": [
+      "smartctl",
+      "-x",
+      "-j",
+      "/dev/sdu"
+    ],
+    "exit_status": 0
+  },
+  "device": {
+    "name": "/dev/sdu",
+    "info_name": "/dev/sdu",
+    "type": "scsi",
+    "protocol": "SCSI"
+  },
+  "vendor": "SEAGATE",
+  "product": "ST4000NM0023",
+  "model_name": "SEAGATE ST4000NM0023",
+  "revision": "0004",
+  "scsi_version": "SPC-4",
+  "user_capacity": {
+    "blocks": 7814037168,
+    "bytes": 4000787030016
+  },
+  "logical_block_size": 512,
+  "rotation_rate": 7200,
+  "form_factor": {
+    "scsi_value": 2,
+    "name": "3.5 inches"
+  },
+  "serial_number": "S1Z0D9PJ0000K5025F7H",
+  "device_type": {
+    "scsi_value": 0,
+    "name": "disk"
+  },
+  "local_time": {
+    "time_t": 1602191066,
+    "asctime": "Thu Oct  8 14:04:26 2020 PDT"
+  },
+  "smart_status": {
+    "passed": true
+  },
+  "temperature": {
+    "current": 41,
+    "drive_trip": 60
+  },
+  "scsi_grown_defect_list": 0,
+  "power_on_time": {
+    "hours": 47603,
+    "minutes": 5
+  },
+  "scsi_error_counter_log": {
+    "read": {
+      "errors_corrected_by_eccfast": 3348360590,
+      "errors_corrected_by_eccdelayed": 0,
+      "errors_corrected_by_rereads_rewrites": 0,
+      "total_errors_corrected": 3348360590,
+      "correction_algorithm_invocations": 0,
+      "gigabytes_processed": "3677.173",
+      "total_uncorrected_errors": 0
+    },
+    "write": {
+      "errors_corrected_by_eccfast": 0,
+      "errors_corrected_by_eccdelayed": 0,
+      "errors_corrected_by_rereads_rewrites": 0,
+      "total_errors_corrected": 0,
+      "correction_algorithm_invocations": 0,
+      "gigabytes_processed": "516.011",
+      "total_uncorrected_errors": 0
+    }
+  }
+}

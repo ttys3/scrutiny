@@ -1,0 +1,28 @@
+{
+  "json_format_version": [
+    1,
+    0
+  ],
+  "smartctl": {
+    "version": [
+      7,
+      0
+    ],
+    "svn_revision": "4883",
+    "platform_info": "x86_64-linux-3.10.0-514.6.1.el7.x86_64",
+    "build_info": "(local build)",
+    "argv": [
+      "smartctl",
+      "-x",
+      "-j",
+      "/dev/sdp"
+    ],
+    "exit_status": 0
+  },
+  "device": {
+    "name": "/dev/sdp",
+    "info_name": "/dev/sdp",
+    "type": "scsi",
+    "protocol": "SCSI"
+  }
+}
