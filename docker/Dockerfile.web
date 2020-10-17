@@ -31,7 +31,9 @@ ENV PATH="/scrutiny/bin:${PATH}"
 
 COPY --from=backendbuild /go/src/github.com/analogj/scrutiny/scrutiny /scrutiny/bin/
 COPY --from=frontendbuild /scrutiny/dist /scrutiny/web
+
 RUN chmod +x /scrutiny/bin/scrutiny && \
     mkdir -p /scrutiny/web && \
     mkdir -p /scrutiny/config
+
 CMD ["/scrutiny/bin/scrutiny", "start"]
