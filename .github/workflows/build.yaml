@@ -6,7 +6,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    container: golang:1.13
+    container: golang:1.15.3
     env:
       PROJECT_PATH: /go/src/github.com/analogj/scrutiny
       CGO_ENABLED: 1
@@ -23,7 +23,7 @@ jobs:
           cd $PROJECT_PATH
 
           go mod vendor
-          go test -race -coverprofile=coverage.txt -covermode=atomic -v -tags "static" $(go list ./... | grep -v /vendor/)
+          go test -race -coverprofile=coverage.txt -covermode=atomic -v -tags "static,timetzdata" $(go list ./... | grep -v /vendor/)
       - name: Build amd64
         env:
           GOOS: linux
@@ -33,9 +33,9 @@ jobs:
 
           cd $PROJECT_PATH
           echo "###### Build Web ######"
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=amd64" -o scrutiny-web-linux-amd64 -tags "static netgo sqlite_omit_load_extension" webapp/backend/cmd/scrutiny/scrutiny.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=amd64" -o scrutiny-web-linux-amd64 -tags "static,netgo,sqlite_omit_load_extension,timetzdata" webapp/backend/cmd/scrutiny/scrutiny.go
           echo "###### Build Collector ######"
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=amd64" -o scrutiny-collector-metrics-linux-amd64 -tags "static netgo" collector/cmd/collector-metrics/collector-metrics.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=amd64" -o scrutiny-collector-metrics-linux-amd64 -tags "static,netgo,timetzdata" collector/cmd/collector-metrics/collector-metrics.go
 
           chmod +x scrutiny-web-linux-amd64
           chmod +x scrutiny-collector-metrics-linux-amd64
@@ -50,8 +50,8 @@ jobs:
           GOARCH: arm
         run: |
           cd $PROJECT_PATH
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm" -o scrutiny-web-linux-arm -tags "static netgo sqlite_omit_load_extension" webapp/backend/cmd/scrutiny/scrutiny.go
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm" -o scrutiny-collector-metrics-linux-arm -tags "static netgo" collector/cmd/collector-metrics/collector-metrics.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm" -o scrutiny-web-linux-arm -tags "static,netgo,sqlite_omit_load_extension,timetzdata" webapp/backend/cmd/scrutiny/scrutiny.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm" -o scrutiny-collector-metrics-linux-arm -tags "static,netgo,timetzdata" collector/cmd/collector-metrics/collector-metrics.go
 
           chmod +x scrutiny-web-linux-arm
           chmod +x scrutiny-collector-metrics-linux-arm
@@ -62,8 +62,8 @@ jobs:
           GOARCH: arm64
         run: |
           cd $PROJECT_PATH
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm64" -o scrutiny-web-linux-arm64 -tags "static netgo sqlite_omit_load_extension" webapp/backend/cmd/scrutiny/scrutiny.go
-          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm64" -o scrutiny-collector-metrics-linux-arm64 -tags "static netgo" collector/cmd/collector-metrics/collector-metrics.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm64" -o scrutiny-web-linux-arm64 -tags "static,netgo,sqlite_omit_load_extension,timetzdata" webapp/backend/cmd/scrutiny/scrutiny.go
+          go build -ldflags "-extldflags=-static -X main.goos=linux -X main.goarch=arm64" -o scrutiny-collector-metrics-linux-arm64 -tags "static,netgo,timetzdata" collector/cmd/collector-metrics/collector-metrics.go
 
           chmod +x scrutiny-web-linux-arm64
           chmod +x scrutiny-collector-metrics-linux-arm64
@@ -74,8 +74,8 @@ jobs:
           GOARCH: amd64
         run: |
           cd $PROJECT_PATH
-          go build -ldflags "-X main.goos=windows -X main.goarch=amd64" -o scrutiny-web-windows-amd64.exe -tags "static" webapp/backend/cmd/scrutiny/scrutiny.go
-          go build -ldflags "-X main.goos=windows -X main.goarch=amd64" -o scrutiny-collector-metrics-windows-amd64.exe -tags "static" collector/cmd/collector-metrics/collector-metrics.go
+          go build -ldflags "-X main.goos=windows -X main.goarch=amd64" -o scrutiny-web-windows-amd64.exe -tags "static,timetzdata" webapp/backend/cmd/scrutiny/scrutiny.go
+          go build -ldflags "-X main.goos=windows -X main.goarch=amd64" -o scrutiny-collector-metrics-windows-amd64.exe -tags "static,timetzdata" collector/cmd/collector-metrics/collector-metrics.go
 
       - name: Build freebsd
         env:
@@ -83,8 +83,8 @@ jobs:
           GOARCH: amd64
         run: |
           cd $PROJECT_PATH
-          go build -ldflags "-extldflags=-static -X main.goos=freebsd -X main.goarch=amd64" -o scrutiny-web-freebsd-amd64 -tags "static netgo sqlite_omit_load_extension" webapp/backend/cmd/scrutiny/scrutiny.go
-          go build -ldflags "-extldflags=-static -X main.goos=freebsd -X main.goarch=amd64" -o scrutiny-collector-metrics-freebsd-amd64 -tags "static netgo" collector/cmd/collector-metrics/collector-metrics.go
+          go build -ldflags "-extldflags=-static -X main.goos=freebsd -X main.goarch=amd64" -o scrutiny-web-freebsd-amd64 -tags "static,netgo,sqlite_omit_load_extension,timetzdata" webapp/backend/cmd/scrutiny/scrutiny.go
+          go build -ldflags "-extldflags=-static -X main.goos=freebsd -X main.goarch=amd64" -o scrutiny-collector-metrics-freebsd-amd64 -tags "static,netgo,timetzdata" collector/cmd/collector-metrics/collector-metrics.go
 
           chmod +x scrutiny-web-freebsd-amd64
           chmod +x scrutiny-collector-metrics-freebsd-amd64
