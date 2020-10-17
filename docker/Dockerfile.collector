@@ -10,7 +10,7 @@ RUN go mod vendor && \
     go build -tags timetzdata -ldflags '-w -extldflags "-static"' -o scrutiny-collector-metrics collector/cmd/collector-metrics/collector-metrics.go
 
 ########
-FROM ubuntu:bionic as runtime
+FROM ubuntu:focal as runtime
 EXPOSE 8080
 WORKDIR /scrutiny
 ENV PATH="/scrutiny/bin:${PATH}"
@@ -18,7 +18,7 @@ ENV PATH="/scrutiny/bin:${PATH}"
 ADD https://github.com/dshearer/jobber/releases/download/v1.4.4/jobber_1.4.4-1_amd64.deb /tmp/
 RUN apt install /tmp/jobber_1.4.4-1_amd64.deb
 
-RUN apt-get update && apt-get install -y smartmontools=7.0-0ubuntu1~ubuntu18.04.1 ca-certificates && update-ca-certificates
+RUN apt-get update && apt-get install -y smartmontools ca-certificates tzdata && update-ca-certificates
 
 COPY /rootfs/scrutiny /scrutiny
 
